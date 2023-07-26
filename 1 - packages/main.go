@@ -3,10 +3,15 @@ package main
 import (
 	"fmt"
 	"modulo/auxiliar"
+
+	"github.com/badoux/checkmail"
 )
 
 func main()	{
 	fmt.Println("writing from file main")
 	auxiliar.Write()
-	//auxiliar.write2()
+
+	error := checkmail.ValidateFormat("x@gmail.com")
+
+	fmt.Println(error)
 }
