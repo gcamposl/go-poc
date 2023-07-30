@@ -24,4 +24,7 @@ func main () {
 
 	result := f1("execution function -> f1")
 	fmt.Println(result)
+
+	calculateResult1, _ := calculate(10,10) // use _ when you don`t want to use this value
+	fmt.Println(calculateResult1)
 }
