@@ -54,6 +54,8 @@ func main () {
 	} else {
 		text = "less than 1"
 	}
-	
+	if number := 10; number > 1 {
+		fmt.Println("number > 1:", number)
+	}
 	fmt.Println(text)
 }
