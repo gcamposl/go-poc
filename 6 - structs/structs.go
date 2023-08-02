@@ -3,8 +3,8 @@ package main
 import "fmt"
 
 type user struct {
-	name string
-	age uint8
+	name    string
+	age     uint8
 	address address
 }
 
@@ -13,7 +13,7 @@ type address struct {
 	number int
 }
 
-func main () {
+func main() {
 	fmt.Println("structs")
 	var usr user
 	usr.name = "gabriel"
@@ -21,10 +21,10 @@ func main () {
 	fmt.Println(usr.name, usr.age)
 
 	ads := address{"street x", 7}
- 	usr2 := user{"campos", 62, ads}
+	usr2 := user{"campos", 62, ads}
 	fmt.Println(usr2)
 
 	usr3 := user{name: "lopes"}
 	fmt.Println(usr3)
-	
+
 }
