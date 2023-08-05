@@ -35,4 +35,21 @@ func main() {
 
 	slice = array3[1:4]
 	fmt.Println(slice)
+
+	// intern array
+
+	slice2 := make([]int, 10, 11)
+	fmt.Println(slice2)
+
+	slice2 = append(slice2, 1)
+	slice2 = append(slice2, 2)
+
+	fmt.Println(len(slice2)) // lenght
+	fmt.Println(cap(slice2)) // capacity
+
+	slice3 := make([]int, 10)
+	fmt.Println(slice3)
+	slice2 = append(slice3, 3)
+	fmt.Println(len(slice3)) // lenght
+	fmt.Println(cap(slice3)) // capacity}
 }
