@@ -2,7 +2,8 @@ package main
 
 import "fmt"
 
-func main () {
+func main() {
+	fmt.Println("Operators")
 	// ARITHMETIC
 	// + - / * %
 	sum := 1 + 1
@@ -26,16 +27,16 @@ func main () {
 	// RELATIONAL OPERATORS
 	fmt.Println(number1 < number2)
 	fmt.Println(number1 > number2)
-	fmt.Println(number1 == number2)		
-	fmt.Println(number1 <= number2)		
-	fmt.Println(number1 >= number2)		
+	fmt.Println(number1 == number2)
+	fmt.Println(number1 <= number2)
+	fmt.Println(number1 >= number2)
 	fmt.Println(number1 != number2)
 
 	// LOGIC OPERATORS
 	tr, fal := true, false
 	fmt.Println(tr && fal) // and
 	fmt.Println(tr || fal) // or
-	fmt.Println(!tr) // denial
+	fmt.Println(!tr)       // denial
 
 	// UNARY OPERATORS
 	number := 1
