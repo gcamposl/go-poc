@@ -12,7 +12,7 @@ func function2() {
 
 func isAproved(n1, n2 float32) bool {
 	defer fmt.Println("calcuted average. wait for the result")
-	if media := (n1 + n2) / 2; media >= 6 {
+	if average := (n1 + n2) / 2; average >= 6 {
 		return true
 	}
 	return false
