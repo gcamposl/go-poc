@@ -23,6 +23,6 @@ func main() {
 	person2 := person{"campos", 13}
 	person2.save()
 
-	isLegalAge := person2.ofLegalAge(person2.age)
-	fmt.Println(isLegalAge)
+	// isLegalAge := person2.ofLegalAge(person2.age)
+	// fmt.Println(isLegalAge)
 }
