@@ -15,6 +15,10 @@ func (p person) ofLegalAge(age uint8) bool {
 	return p.age > 18
 }
 
+func (p *person) haveBirthday() {
+	p.age++
+}
+
 func main() {
 	person1 := person{"gabriel", 26}
 	fmt.Println(person1)
@@ -23,6 +27,10 @@ func main() {
 	person2 := person{"campos", 13}
 	person2.save()
 
-	// isLegalAge := person2.ofLegalAge(person2.age)
-	// fmt.Println(isLegalAge)
+	isLegalAge := person2.ofLegalAge(person2.age)
+	fmt.Println(isLegalAge)
+
+	fmt.Println(person2.age)
+	person2.haveBirthday()
+	fmt.Println(person2.age)
 }
