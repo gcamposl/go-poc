@@ -5,6 +5,23 @@ import (
 	"time"
 )
 
+func multiplexer(channel1, channel2 <-chan string) <-chan string {
+	outChannel := make(chan string)
+
+	go func() {
+		for {
+			select {
+			case message := <-channel1:
+				outChannel <- message
+			case message := <-channel2:
+				outChannel <- message
+			}
+		}
+	}()
+
+	return outChannel
+}
+
 func write(text string) <-chan string {
 	channel := make(chan string)
 	go func() {
@@ -17,6 +34,8 @@ func write(text string) <-chan string {
 }
 
 func main() {
-	test := write("hello")
-	fmt.Println(test)
+	channel := multiplexer(write("hello channel 1"), write("hello channel 2"))
+	for i := 0; i < 10; i++ {
+		fmt.Println(<-channel)
+	}
 }
