@@ -6,11 +6,13 @@ import (
 
 // sempre começar com Test
 func TestTypeAddress(t *testing.T) {
-	addressForTest := "Rua xpto"
+	addressForTest := "avenida"
 	expectedAddressType := "Rua"
 	receivedAddressType := AddressType(addressForTest)
 
 	if expectedAddressType != receivedAddressType {
-		t.Error("The received type is different from the expected parameter")
+		t.Errorf("The received type is different from the expected parameter! Expected %s and received %s",
+			expectedAddressType,
+			receivedAddressType)
 	}
 }
