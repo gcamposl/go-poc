@@ -1,6 +1,7 @@
-package address
+package address_test
 
 import (
+	"automated-tests/addres"
 	"testing"
 )
 
@@ -9,8 +10,9 @@ type testCase struct {
 	expectedReturn string
 }
 
-// sempre começar com Test
+// sempre começar com Test + inicio da palavra com letra ^
 func TestTypeAddress(t *testing.T) {
+	t.Parallel()
 
 	testCases := []testCase{
 		{"Rua abc", "Rua"},
@@ -20,11 +22,19 @@ func TestTypeAddress(t *testing.T) {
 	}
 
 	for _, caset := range testCases {
-		typeAddresReceived := AddressType(caset.addressInsert)
+		typeAddresReceived := addres.AddressType(caset.addressInsert)
 		if typeAddresReceived != caset.expectedReturn {
 			t.Errorf("The type %s received is different from what was expected %s",
 				typeAddresReceived,
 				caset.expectedReturn)
 		}
+	}
+}
+
+func TestAny(t *testing.T) {
+	t.Parallel()
+
+	if 1 > 2 {
+		t.Errorf("test broken.")
 	}
 }
