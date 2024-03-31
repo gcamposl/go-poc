@@ -18,7 +18,14 @@
     <marquee>
         <h4>welcome, {{.Name}}!</h4>
     </marquee>
-    <button>click here</button>
+    <button id="botao">click here</button>
+
+    <script>
+        var button = document.getElementById("botao")
+        button.onclick = () => {
+            alert("clickclickclickclick!")
+        }
+    </script>
 
 </body>
 </html>
