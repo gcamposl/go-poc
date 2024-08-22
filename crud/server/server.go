@@ -14,6 +14,7 @@ type user struct {
 }
 
 // insert user into database
+// test
 func CreateUser(w http.ResponseWriter, r *http.Request) {
 	request, err := ioutil.ReadAll(r.Body)
 	if err != nil {
