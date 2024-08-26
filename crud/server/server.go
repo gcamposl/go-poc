@@ -1,6 +1,7 @@
 package server
 
 import (
+	"crud/database"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -28,5 +29,32 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println(user)
+	db, err := database.Connect()
+	if err != nil {
+		w.Write([]byte("failed to connect to database"))
+		return
+	}
+	defer db.Close()
+
+	statment, err := db.Prepare("insert into users (name, email) values (?, ?)")
+	if err != nil {
+		w.Write([]byte("failed to create statement"))
+		return
+	}
+	defer statment.Close()
+
+	insertion, err := statment.Exec(user.Name, user.Email)
+	if err != nil {
+		w.Write([]byte("failed to execute statement"))
+		return
+	}
+
+	insertionId, err := insertion.LastInsertId()
+	if err != nil {
+		w.Write([]byte("failed to get the last inserted id"))
+		return
+	}
+
+	w.WriteHeader(http.StatusCreated)
+	w.Write([]byte(fmt.Sprintf("inserted id: %d", insertionId)))
 }

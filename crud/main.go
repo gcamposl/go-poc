@@ -14,6 +14,6 @@ func main() {
 
 	router.HandleFunc("/users", server.CreateUser).Methods(http.MethodPost)
 
-	fmt.Println("Listening on port 5000")
-	log.Fatal(http.ListenAndServe(":5000", router))
+	fmt.Println("Listening on port 5001")
+	log.Fatal(http.ListenAndServe(":5001", router))
 }
