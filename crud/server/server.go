@@ -58,3 +58,13 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 	w.Write([]byte(fmt.Sprintf("inserted id: %d", insertionId)))
 }
+
+// get all users in database
+func getAllUsers(w http.ResponseWriter, r *http.Request) {
+
+}
+
+// get a specific user by id
+func getUserById(w http.ResponseWriter, r *http.Request) {
+
+}
