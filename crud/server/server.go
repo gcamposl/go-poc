@@ -25,33 +25,33 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	var user user
 	if err = json.Unmarshal(request, &user); err != nil {
-		w.Write([]byte("failed to converter user in struct"))
+		w.Write([]byte("failed to converter user in struct - " + err.Error()))
 		return
 	}
 
 	db, err := database.Connect()
 	if err != nil {
-		w.Write([]byte("failed to connect to database"))
+		w.Write([]byte("failed to connect to database - " + err.Error()))
 		return
 	}
 	defer db.Close()
 
 	statment, err := db.Prepare("insert into users (name, email) values (?, ?)")
 	if err != nil {
-		w.Write([]byte("failed to create statement"))
+		w.Write([]byte("failed to create statement - " + err.Error()))
 		return
 	}
 	defer statment.Close()
 
 	insertion, err := statment.Exec(user.Name, user.Email)
 	if err != nil {
-		w.Write([]byte("failed to execute statement"))
+		w.Write([]byte("failed to execute statement - " + err.Error()))
 		return
 	}
 
 	insertionId, err := insertion.LastInsertId()
 	if err != nil {
-		w.Write([]byte("failed to get the last inserted id"))
+		w.Write([]byte("failed to get the last inserted id - " + err.Error()))
 		return
 	}
 
@@ -60,11 +60,35 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 }
 
 // get all users in database
-func getAllUsers(w http.ResponseWriter, r *http.Request) {
-
+func GetAllUsers(w http.ResponseWriter, r *http.Request) {
+	db, err := database.Connect()
+	if err != nil {
+		w.Write([]byte("failed to connect to database"))
+	}
+	defer db.Close()
+	sql := "select * from users"
+	lines, err := db.Query(sql)
+	if err != nil {
+		w.Write([]byte("failed to get all users"))
+	}
+	defer lines.Close()
+	var users []user
+	for lines.Next() {
+		var user user
+		if err := lines.Scan(&user.ID, &user.Name, &user.Email); err != nil {
+			w.Write([]byte("failed to scan users"))
+			return
+		}
+		users = append(users, user)
+	}
+	w.WriteHeader(http.StatusOK)
+	if err := json.NewEncoder(w).Encode(users); err != nil {
+		w.Write([]byte("failed to converter user to json"))
+		return
+	}
 }
 
 // get a specific user by id
-func getUserById(w http.ResponseWriter, r *http.Request) {
+func GetUserById(w http.ResponseWriter, r *http.Request) {
 
 }
