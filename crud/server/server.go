@@ -120,4 +120,10 @@ func GetUserById(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
+
+	w.WriteHeader(http.StatusOK)
+	if err := json.NewEncoder(w).Encode(user); err != nil {
+		w.Write([]byte("failed to converter user to json"))
+		return
+	}
 }
