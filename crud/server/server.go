@@ -127,3 +127,8 @@ func GetUserById(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+
+// update data users in database
+func UpdateUsers(w http.ResponseWriter, r *http.Request) {
+
+}
