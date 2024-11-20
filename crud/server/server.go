@@ -130,5 +130,24 @@ func GetUserById(w http.ResponseWriter, r *http.Request) {
 
 // update data users in database
 func UpdateUsers(w http.ResponseWriter, r *http.Request) {
+	parameters := mux.Vars(r)
+
+	id, err := strconv.ParseUint(parameters["id"], 10, 32)
+	if err != nil {
+		w.Write([]byte("Error when converter parameter"))
+		return
+	}
+
+	requestBody, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		w.Write([]byte("Error when read request body"))
+		return
+	}
+
+	var user user
+	if err := json.Unmarshal(requestBody, &user); err != nil {
+		w.Write([]byte("Error when deserialize request body"))
+		return
+	}
 
 }
