@@ -131,7 +131,6 @@ func GetUserById(w http.ResponseWriter, r *http.Request) {
 // update data users in database
 func UpdateUsers(w http.ResponseWriter, r *http.Request) {
 	parameters := mux.Vars(r)
-
 	id, err := strconv.ParseUint(parameters["id"], 10, 32)
 	if err != nil {
 		w.Write([]byte("Error when converter parameter"))
@@ -150,4 +149,24 @@ func UpdateUsers(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	db, err := database.Connect()
+	if err != nil {
+		w.Write([]byte("Error when try to connect to database"))
+		return
+	}
+	defer db.Close()
+
+	statement, err := db.Prepare("update users set name = ?, email = ? where id = ?")
+	if err != nil {
+		w.Write([]byte("Error when try to create statement"))
+		return
+	}
+	defer statement.Close()
+
+	if _, err := statement.Exec(user.Name, user.Email, id); err != nil {
+		w.Write([]byte("Error when try to exec statement"))
+		return
+	}
+
+	w.WriteHeader(http.StatusNoContent)
 }
