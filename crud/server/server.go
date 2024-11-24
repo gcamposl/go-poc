@@ -170,3 +170,34 @@ func UpdateUsers(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusNoContent)
 }
+
+// DeleteUser remove user from database
+func DeleteUser(w http.ResponseWriter, r *http.Request) {
+	parameters := mux.Vars(r)
+	Id, err := strconv.ParseUint(parameters["id"], 10, 32)
+	if err != nil {
+		w.Write([]byte("Error when converter parameter."))
+		return
+	}
+
+	db, err := database.Connect()
+	if err != nil {
+		w.Write([]byte("Error when try to connect to database."))
+		return
+	}
+	defer db.Close()
+
+	statement, err := db.Prepare("delete from users where id = ?")
+	if err != nil {
+		w.Write([]byte("Error when try to create statement."))
+		return
+	}
+	defer statement.Close()
+
+	if _, err := statement.Exec(Id); err != nil {
+		w.Write([]byte("Error when try to exec statement"))
+		return
+	}
+
+	w.WriteHeader(http.StatusNoContent)
+}
