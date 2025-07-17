@@ -18,7 +18,10 @@ func main() {
 	fmt.Println("channels")
 	channel := make(chan string)
 
-	go write("hello", channel)
+	go func() {
+		write("hello", channel)
+		fmt.Println("write finished")
+	}()
 
 	for message := range channel {
 		fmt.Println(message)
